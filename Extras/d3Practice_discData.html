@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>D3 Practice 2: Disc and Data</title>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <style>
+            p { font-size: 20px; }
+            svg { border: solid black 1px; background-color: rgba(40, 174, 27, .5); }
+        </style>
+    </head>
+    <body>
+        <p>
+            <b>Testing Visualizaiton of Music Data on Vinyl Representation</b>
+        </p>
+        <div id="canvas">
+
+        </div>
+        <script>
+            var svg = d3.select("div").append("svg")
+                                      .attr("height", 700)
+                                      .attr("width", 900);
+
+            svg.append("circle")
+               .attr("cx", 450)
+               .attr("cy", 350)
+               .attr("r", 350)
+               .style("fill", "black")
+               .style("opacity", .85);
+
+            svg.append("circle")
+               .attr("cx", 450)
+               .attr("cy", 350)
+               .attr("r", 160)
+               .style("fill", "red")
+               .style("opacity", .75);
+
+            var radiusScale = d3.scale.linear()
+                                      .domain([0, 1])
+                                      .range([180, 330]);
+
+            d3.json("music_fakeData.json", function(error, data) {
+                music = data;
+
+                svg.selectAll().data(music)
+                               .enter()
+                               .append("circle")
+                               .attr("cx", 450)
+                               .attr("cy", 350)
+                               .attr("r", function(d) {
+                                   return radiusScale(d.hottness);
+                               })
+                               .style("fill", "none")
+                               .style("stroke", "red")
+                               .style("stroke-width", "2");
+            });
+        </script>
+    </body>
+</html>
