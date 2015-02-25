@@ -29,18 +29,18 @@
             svg.append("circle")
                .attr("cx", 450)
                .attr("cy", 350)
-               .attr("r", 160)
+               .attr("r", 130)
                .style("fill", "red")
                .style("opacity", .75);
 
             var radiusScale = d3.scale.linear()
                                       .domain([0, 1])
-                                      .range([180, 330]);
+                                      .range([140, 340]);
 
             d3.json("music_fakeData.json", function(error, data) {
                 music = data;
 
-                svg.selectAll().data(music)
+                var dataCircles = svg.selectAll().data(music)
                                .enter()
                                .append("circle")
                                .attr("cx", 450)
@@ -51,6 +51,24 @@
                                .style("fill", "none")
                                .style("stroke", "red")
                                .style("stroke-width", "2");
+                var textContainer = svg.append("text")
+                                       .attr("x", 450)
+                                       .attr("y", 100)
+                                       .attr("baseline-alignment", "middle");
+
+                var textLabels = textContainer.selectAll("tspan").data(music)
+                                    .enter()
+                                    .append("tspan")
+                                    .attr("x", 450)
+                                    .attr("y", function(d) {
+                                        subFrom = radiusScale(d.hottness) + 2;
+                                        return 350 - subFrom;
+                                    })
+                                    .attr("text-anchor", "middle")
+                                    .text(function(d) {
+                                        return d.decade + ": " + d.hottness;
+                                    })
+                                    .style("fill", "orange");
             });
         </script>
     </body>
