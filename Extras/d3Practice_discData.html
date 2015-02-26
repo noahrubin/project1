@@ -9,7 +9,7 @@
     </head>
     <body>
         <p>
-            <b>Testing Visualizaiton of Music Data on Vinyl Representation</b>
+            <b>Hottness, Danceability, and Tempo of Music by Decade</b>
         </p>
         <div id="canvas">
 
@@ -18,6 +18,8 @@
             var svg = d3.select("div").append("svg")
                                       .attr("height", 700)
                                       .attr("width", 900);
+
+            /*                        create vinyl record                     */
 
             svg.append("circle")
                .attr("cx", 450)
@@ -33,12 +35,22 @@
                .style("fill", "red")
                .style("opacity", .75);
 
-            var radiusScale = d3.scale.linear()
-                                      .domain([0, 1])
-                                      .range([140, 340]);
+            var hottnessScale = d3.scale.linear()
+                                        .domain([0, 1])
+                                        .range([140, 340]);
+
+            var danceabilityScale = d3.scale.linear()
+                                            .domain([0, 1])
+                                            .range(["#006076", "#ec2400"]);
+
+            var tempoScale = d3.scale.linear()
+                                     .domain([50, 150])
+                                     .range([2, 6]);
 
             d3.json("music_fakeData.json", function(error, data) {
                 music = data;
+
+                /*             data manipulation and formatting               */
 
                 var dataCircles = svg.selectAll().data(music)
                                .enter()
@@ -46,11 +58,18 @@
                                .attr("cx", 450)
                                .attr("cy", 350)
                                .attr("r", function(d) {
-                                   return radiusScale(d.hottness);
+                                   return hottnessScale(d.hottness);
                                })
                                .style("fill", "none")
-                               .style("stroke", "red")
-                               .style("stroke-width", "2");
+                               .style("stroke", function(d) {
+                                   return danceabilityScale(d.danceability);
+                               })
+                               .style("stroke-width", function(d) {
+                                   return tempoScale(d.tempo);
+                               });
+
+                /*                      text manipulation                     */
+
                 var textContainer = svg.append("text")
                                        .attr("x", 450)
                                        .attr("y", 100)
@@ -61,12 +80,12 @@
                                     .append("tspan")
                                     .attr("x", 450)
                                     .attr("y", function(d) {
-                                        subFrom = radiusScale(d.hottness) + 2;
+                                        subFrom = hottnessScale(d.hottness) + 4;
                                         return 350 - subFrom;
                                     })
                                     .attr("text-anchor", "middle")
                                     .text(function(d) {
-                                        return d.decade + ": " + d.hottness;
+                                        return d.decade;
                                     })
                                     .style("fill", "orange");
             });

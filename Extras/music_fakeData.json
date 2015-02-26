@@ -1,7 +1,7 @@
 [
-{ "decade" : "1970", "hottness" : 0.3, "danceability" : 0.3 },
-{ "decade" : "1980", "hottness" : 0.4, "danceability" : 0.4 },
-{ "decade" : "1990", "hottness" : 0.5, "danceability" : 0.5 },
-{ "decade" : "2000", "hottness" : 0.6, "danceability" : 0.6 },
-{ "decade" : "2010", "hottness" : 0.7, "danceability" : 0.7 }
+{ "decade" : "1970", "hottness" : 0.3, "danceability" : 0.3, "tempo" : 100 },
+{ "decade" : "1980", "hottness" : 0.4, "danceability" : 0.4, "tempo" : 110 },
+{ "decade" : "1990", "hottness" : 0.5, "danceability" : 0.5, "tempo" : 115 },
+{ "decade" : "2000", "hottness" : 0.6, "danceability" : 0.6, "tempo" : 120 },
+{ "decade" : "2010", "hottness" : 0.7, "danceability" : 0.7, "tempo" : 140 }
 ]
