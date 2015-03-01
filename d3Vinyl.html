@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>D3 Practice 2: Disc and Data</title>
+        <title>D3 Visualization</title>
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <style>
             p { font-size: 20px; }
@@ -43,7 +43,11 @@
                                      .domain([50, 150])
                                      .range([2, 6]);
 
-            d3.json("music_fakeData.json", function(error, data) {
+            var radiusScale = d3.scale.linear()
+                                      .domain([1970, 2010])
+                                      .range([150, 330]);
+
+            d3.json("songStatistics.json", function(error, data) {
                 music = data;
 
                 /*             data manipulation and formatting               */
@@ -54,14 +58,14 @@
                                .attr("cx", 450)
                                .attr("cy", 350)
                                .attr("r", function(d) {
-                                   return hottnessScale(d.hottness);
+                                   return radiusScale(d.decade);
                                })
                                .style("fill", "none")
                                .style("stroke", function(d) {
-                                   return danceabilityScale(d.danceability);
+                                   return hottnessScale(d.hotttnesss-mean);
                                })
                                .style("stroke-width", function(d) {
-                                   return tempoScale(d.tempo);
+                                   return tempoScale(d.tempo-mean);
                                });
 
                 /*                      text manipulation                     */
@@ -76,7 +80,7 @@
                                     .append("tspan")
                                     .attr("x", 450)
                                     .attr("y", function(d) {
-                                        subFrom = hottnessScale(d.hottness) + 4;
+                                        subFrom = radiusScale(d.decade) + 4;
                                         return 350 - subFrom;
                                     })
                                     .attr("text-anchor", "middle")
