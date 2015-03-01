@@ -13,6 +13,7 @@ def groupByYear(jsonData):
     songs_1990 = []
     songs_2000 = []
     songs_2010 = []
+    songs_IDK = []
 
     for elem in jsonData:
         if (elem["year"] >= 1970 and elem["year"] < 1980):
@@ -25,8 +26,11 @@ def groupByYear(jsonData):
             songs_2000.append(elem)
         elif (elem["year"] >= 2010):
             songs_2010.append(elem)
+        elif (elem["year"] == 0):
+            songs_IDK.append(elem)
 
-    return songs_1970, songs_1980, songs_1990, songs_2000, songs_2010
+
+    return songs_1970, songs_1980, songs_1990, songs_2000, songs_2010, songs_IDK
 
 def getMean_ints(songs_Year, measure):
     sum = 0
@@ -49,12 +53,19 @@ def getMean_floats(songs_Year, measure):
 
     return math.fsum(tempos)/len(songs_Year)
 
+def jsonifySongs(decade, h_mean, h_median, t_mean, t_median):
+    return json.dumps({"decade":decade, "hotttnesss-mean":h_mean,
+           "hotttnesss-median":h_median, "tempo-mean":t_mean,
+           "tempo-median":t_median}, sort_keys=True, indent=4, separators=(',',':'))
+
 if __name__ == "__main__":
 
     json_data = open('songs.json')
     data = json.load(json_data)
+    newline = "\n"
+    comma = ","
 
-    songs_1970, songs_1980, songs_1990, songs_2000, songs_2010 = groupByYear(data)
+    songs_1970, songs_1980, songs_1990, songs_2000, songs_2010, songs_IDK = groupByYear(data)
 
     #extract Hotttness means
     hotttness_mean_1970 = getMean_ints(songs_1970, "hotttnesss")
@@ -91,7 +102,20 @@ if __name__ == "__main__":
     # danceability_2000 = getMean_ints(songs_2000, "danceability")
     # danceability_2010 = getMean_ints(songs_2010, "danceability")
 
+    data_1970 = jsonifySongs(1970, hotttness_mean_1970, hotttness_median_1970, tempo_mean_1970, tempo_median_1970)
+    data_1980 = jsonifySongs(1980, hotttness_mean_1980, hotttness_median_1980, tempo_mean_1980, tempo_median_1980)
+    data_1990 = jsonifySongs(1990, hotttness_mean_1990, hotttness_median_1990, tempo_mean_1990, tempo_median_1990)
+    data_2000 = jsonifySongs(2000, hotttness_mean_2000, hotttness_median_2000, tempo_mean_2000, tempo_median_2000)
+    data_2010 = jsonifySongs(2010, hotttness_mean_2010, hotttness_median_2010, tempo_mean_2010, tempo_median_2010)
 
-    # pprint(tempo_mean_1980)
-    # pprint(tempo_median_1980)
+    doc = open("songStatistics.json", 'w')
+    doc.write("[" + newline
+                  + data_1970 + comma + newline
+                  + data_1980 + comma + newline
+                  + data_1990 + comma + newline
+                  + data_2000 + comma + newline
+                  + data_2010 + comma + newline +
+                  "]")
+
+    doc.close()
     json_data.close()
