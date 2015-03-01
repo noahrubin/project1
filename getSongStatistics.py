@@ -56,9 +56,9 @@ def getMean_floats(songs_Year, measure):
     return math.fsum(tempos)/len(songs_Year)
 
 def jsonifySongs(decade, h_mean, h_median, t_mean, t_median):
-    return json.dumps({"decade":decade, "hotttnesss-mean":h_mean,
-           "hotttnesss-median":h_median, "tempo-mean":t_mean,
-           "tempo-median":t_median}, sort_keys=True, indent=4, separators=(',',':'))
+    return json.dumps({"decade":decade, "hotttnesss_mean":h_mean,
+           "hotttnesss_median":h_median, "tempo_mean":t_mean,
+           "tempo_median":t_median}, sort_keys=True, indent=4, separators=(',',':'))
 
 if __name__ == "__main__":
 

@@ -15,9 +15,9 @@
 
         </div>
         <script>
-            var svg = d3.select("div").append("svg")
-                                      .attr("height", 700)
-                                      .attr("width", 900);
+            var svg = d3.select("#canvas").append("svg")
+                                          .attr("height", 700)
+                                          .attr("width", 900);
 
             /*                        create vinyl record                     */
 
@@ -36,16 +36,16 @@
                .style("opacity", .75);
 
             var hottnessScale = d3.scale.linear()
-                                        .domain([0, 1])
+                                        .domain([0.66, 0.73])
                                         .range(["#006076", "#ec2400"]);
 
             var tempoScale = d3.scale.linear()
-                                     .domain([50, 150])
-                                     .range([2, 6]);
+                                     .domain([118, 131])
+                                     .range([2, 8]);
 
             var radiusScale = d3.scale.linear()
                                       .domain([1970, 2010])
-                                      .range([150, 330]);
+                                      .range([180, 300]);
 
             d3.json("songStatistics.json", function(error, data) {
                 music = data;
@@ -62,10 +62,10 @@
                                })
                                .style("fill", "none")
                                .style("stroke", function(d) {
-                                   return hottnessScale(d.hotttnesss-mean);
+                                   return hottnessScale(d.hotttnesss_mean);
                                })
                                .style("stroke-width", function(d) {
-                                   return tempoScale(d.tempo-mean);
+                                   return tempoScale(d.tempo_mean);
                                });
 
                 /*                      text manipulation                     */
@@ -80,7 +80,7 @@
                                     .append("tspan")
                                     .attr("x", 450)
                                     .attr("y", function(d) {
-                                        subFrom = radiusScale(d.decade) + 4;
+                                        subFrom = radiusScale(d.decade) + 5;
                                         return 350 - subFrom;
                                     })
                                     .attr("text-anchor", "middle")
