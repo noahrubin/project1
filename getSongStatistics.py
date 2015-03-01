@@ -16,19 +16,21 @@ def groupByYear(jsonData):
     songs_IDK = []
 
     for elem in jsonData:
-        if (elem["year"] >= 1970 and elem["year"] < 1980):
-            songs_1970.append(elem)
-        elif (elem["year"] >= 1980 and elem["year"] < 1990):
-            songs_1980.append(elem)
-        elif (elem["year"] >= 1990 and elem["year"] < 2000):
-            songs_1990.append(elem)
-        elif (elem["year"] >= 2000 and elem["year"] < 2010):
-            songs_2000.append(elem)
-        elif (elem["year"] >= 2010):
-            songs_2010.append(elem)
-        elif (elem["year"] == 0):
+        if (elem["tempo"] != 0 and elem["hotttnesss"] != 0):
+            if (elem["year"] >= 1970 and elem["year"] < 1980):
+                songs_1970.append(elem)
+            elif (elem["year"] >= 1980 and elem["year"] < 1990):
+                songs_1980.append(elem)
+            elif (elem["year"] >= 1990 and elem["year"] < 2000):
+                songs_1990.append(elem)
+            elif (elem["year"] >= 2000 and elem["year"] < 2010):
+                songs_2000.append(elem)
+            elif (elem["year"] >= 2010):
+                songs_2010.append(elem)
+            elif (elem["year"] == 0):
+                songs_IDK.append(elem)
+        else:
             songs_IDK.append(elem)
-
 
     return songs_1970, songs_1980, songs_1990, songs_2000, songs_2010, songs_IDK
 
@@ -107,6 +109,8 @@ if __name__ == "__main__":
     data_1990 = jsonifySongs(1990, hotttness_mean_1990, hotttness_median_1990, tempo_mean_1990, tempo_median_1990)
     data_2000 = jsonifySongs(2000, hotttness_mean_2000, hotttness_median_2000, tempo_mean_2000, tempo_median_2000)
     data_2010 = jsonifySongs(2010, hotttness_mean_2010, hotttness_median_2010, tempo_mean_2010, tempo_median_2010)
+
+    pprint(len(songs_IDK))
 
     doc = open("songStatistics.json", 'w')
     doc.write("[" + newline

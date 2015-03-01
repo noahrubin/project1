@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>D3 Practice 2: Disc and Data</title>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <style>
+            p { font-size: 20px; }
+            svg { border: solid black 1px; background-color: rgba(40, 174, 27, .5); }
+        </style>
+    </head>
+    <body>
+        <p>
+            <b>Trends in Music by Decade</b>
+        </p>
+        <div id="canvas">
+
+        </div>
+        <script>
+            var svg = d3.select("div").append("svg")
+                                      .attr("height", 700)
+                                      .attr("width", 900);
+
+            /*                        create vinyl record                     */
+
+            svg.append("circle")
+               .attr("cx", 450)
+               .attr("cy", 350)
+               .attr("r", 350)
+               .style("fill", "black")
+               .style("opacity", .85);
+
+            svg.append("circle")
+               .attr("cx", 450)
+               .attr("cy", 350)
+               .attr("r", 130)
+               .style("fill", "red")
+               .style("opacity", .75);
+
+            var hottnessScale = d3.scale.linear()
+                                        .domain([0, 1])
+                                        .range(["#006076", "#ec2400"]);
+
+            var tempoScale = d3.scale.linear()
+                                     .domain([50, 150])
+                                     .range([2, 6]);
+
+            d3.json("music_fakeData.json", function(error, data) {
+                music = data;
+
+                /*             data manipulation and formatting               */
+
+                var dataCircles = svg.selectAll().data(music)
+                               .enter()
+                               .append("circle")
+                               .attr("cx", 450)
+                               .attr("cy", 350)
+                               .attr("r", function(d) {
+                                   return hottnessScale(d.hottness);
+                               })
+                               .style("fill", "none")
+                               .style("stroke", function(d) {
+                                   return danceabilityScale(d.danceability);
+                               })
+                               .style("stroke-width", function(d) {
+                                   return tempoScale(d.tempo);
+                               });
+
+                /*                      text manipulation                     */
+
+                var textContainer = svg.append("text")
+                                       .attr("x", 450)
+                                       .attr("y", 100)
+                                       .attr("baseline-alignment", "middle");
+
+                var textLabels = textContainer.selectAll("tspan").data(music)
+                                    .enter()
+                                    .append("tspan")
+                                    .attr("x", 450)
+                                    .attr("y", function(d) {
+                                        subFrom = hottnessScale(d.hottness) + 4;
+                                        return 350 - subFrom;
+                                    })
+                                    .attr("text-anchor", "middle")
+                                    .text(function(d) {
+                                        return d.decade;
+                                    })
+                                    .style("fill", "orange");
+            });
+        </script>
+    </body>
+</html>

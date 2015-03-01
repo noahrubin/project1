@@ -1,37 +1,37 @@
 [
 {
     "decade":1970,
-    "hotttnesss-mean":0.6808598333333333,
-    "hotttnesss-median":0.70297699999999996,
-    "tempo-mean":130.81615040650408,
-    "tempo-median":127.60599999999999
+    "hotttnesss-mean":0.7250715108225109,
+    "hotttnesss-median":0.75471600000000005,
+    "tempo-mean":130.76774025974026,
+    "tempo-median":127.749
 },
 {
     "decade":1980,
-    "hotttnesss-mean":0.6670657471526196,
-    "hotttnesss-median":0.648733,
-    "tempo-mean":126.29023690205011,
-    "tempo-median":123.401
+    "hotttnesss-mean":0.7090195255474452,
+    "hotttnesss-median":0.68221799999999999,
+    "tempo-mean":127.18464233576643,
+    "tempo-median":123.452
 },
 {
     "decade":1990,
-    "hotttnesss-mean":0.6322248315352688,
-    "hotttnesss-median":0.60703700000000005,
-    "tempo-mean":124.21876680497925,
-    "tempo-median":120.92
+    "hotttnesss-mean":0.6921309708295339,
+    "hotttnesss-median":0.65283999999999998,
+    "tempo-mean":125.20982406563354,
+    "tempo-median":121.98099999999999
 },
 {
     "decade":2000,
-    "hotttnesss-mean":0.6196825874950845,
-    "hotttnesss-median":0.59592699999999998,
-    "tempo-mean":125.70020369642155,
-    "tempo-median":123.006
+    "hotttnesss-mean":0.6694740323817638,
+    "hotttnesss-median":0.62661299999999998,
+    "tempo-mean":126.16377886663827,
+    "tempo-median":123.38200000000001
 },
 {
     "decade":2010,
-    "hotttnesss-mean":0.6315826406249998,
-    "hotttnesss-median":0.6310135,
-    "tempo-mean":118.923484375,
-    "tempo-median":120.07849999999999
+    "hotttnesss-mean":0.6626440819672129,
+    "hotttnesss-median":0.64221799999999996,
+    "tempo-mean":118.27983606557376,
+    "tempo-median":120.072
 },
 ]
